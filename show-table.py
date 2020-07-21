@@ -13,6 +13,7 @@ def usage():
   print("    bu : show germany bundesliga standing")
   print("    lu : show france league 1 standing")
   print("    ll : show Spanish laliga standing")
+  print("    po : show portugal league standing")
 
 #################################
 
@@ -22,7 +23,8 @@ def league(i):
                 'sa':'https://supersport.com/football/italy/logs',
                 'll':'https://supersport.com/football/spain/logs',
                'lu':'https://supersport.com/football/france/logs',
-               'bu':'https://supersport.com/football/germany/logs'
+               'bu':'https://supersport.com/football/germany/logs',
+               'po':'https://supersport.com/football/portugal/logs'
                
              }
         return switcher.get(i,"Invalid option")
@@ -46,11 +48,11 @@ if le != "Invalid option":
   #print(table)
   js = json.loads(table["logs"])
 
-  headers = ["#","Team", "W", "D", "L", "P"]
+  headers = ["#","Team", "PL" ,"W", "D", "L", "P"]
   data = []
   for t in js:
     for te in t["positions"]:
       #print("{}    {}    {}    {}".format (te["name"],te["won"],te["drew"], te["lost"]))
-      data.append([te["position"],te["name"],te["won"],te["drew"], te["lost"],te["points"]])
+      data.append([te["position"],te["name"],te["played"],te["won"],te["drew"], te["lost"],te["points"]])
 
   print(tabulate(data, headers, tablefmt="github"))
