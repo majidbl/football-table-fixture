@@ -38,7 +38,7 @@ if len(sys.argv) < 2 or len(sys.argv) > 2:
   sys.exit()
 
 loc = requests.get("http://ipinfo.io")
-#print(loc.text)
+
 jloc = json.loads(loc.text)
 # checkif input league was in var
 le = league(sys.argv[1])
@@ -74,28 +74,24 @@ if le != "Invalid option":
       scores.append(m.text)
       if m.get("class")[0] == "match__time":
         scores.append("{}/{}".format (jloc["country"],jloc["city"]))
-      #print(m.text)
+  
   match_score = []
-  #print(scores)
+  
   for i in range(0, len(team_name)):
     if i < len(scores):
       match_score.append(scores[i])
     else:
       match_score.append("N/A")
   index = []
-  #print(len(match_score))
-  #print(len(team_name))
+  
   #import pdb; pdb.set_trace()
   for i in range(0,len(tages)):
     if tages[i]== 'date-caption':
       index.append(i)
   index.append(len(tages))
-  #print(index)
-  #print(tages)
-  #print(match_score)
+  
   for d in range(0,len(index)-1):
     cm = math.ceil((index[d+1] - index[d]-1)/2)
-    #print(cm)
     for c in range(0,int(cm)):
       inner.append([team_name[counter],match_score[counter],match_score[counter+1] ,team_name[counter+1]])
       counter = counter + 2
